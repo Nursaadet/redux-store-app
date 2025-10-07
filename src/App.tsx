@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FavoritesPage from "./pages/FavoritesPage";
+import Home from "./pages/Home";
+import NavBar from "./components/Navbar";
 
 function App() {
   return (
@@ -9,7 +11,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/favorites" element={<FavoritesPage/>}} />
+            <Route path="/favorites" element={<FavoritesPage/>} />
           </Routes>
         </BrowserRouter>
     </div>
