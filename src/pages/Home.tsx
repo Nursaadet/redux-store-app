@@ -3,25 +3,25 @@ import SearchComp from "../components/SearchComp";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
+  addFavorites,
   fetchFail,
   fetchStart,
   getSuccessProduct,
 } from "../features/productsSlice";
-import { EventFunc, Products } from "../models/models";
-
+import { VoidFunc } from "../models/models";
+import { EventFunc, Product, Products } from "../models/models";
+import Card from "../components/Card";
 
 const Home = () => {
   const [search, setSearch] = useState<string>("");
   const dispatch = useAppDispatch();
-  const { loading, error, productsList } = useAppSelector(
+  const { loading, error, productsList, favorites } = useAppSelector(
     (state) => state.products
   );
-
 
   const getData = async () => {
     dispatch(fetchStart());
     try {
-      
       const { data } = await axios.get<Products>(
         `https://dummyjson.com/products/search?q=${search}`
       );
@@ -37,11 +37,15 @@ const Home = () => {
     getData();
   }, [search]);
 
-  
   const handleChange: EventFunc = (e) => {
     setSearch(e.target.value);
   };
 
+  const handleAdd = (product: Product) => {
+    if (favorites.filter((item) => item.id === product.id).length === 0) {
+      dispatch(addFavorites(product));
+    }
+  };
 
   return (
     <div>
@@ -55,9 +59,14 @@ const Home = () => {
           <p className="text-center text-red-600">Something went wrong...</p>
         </div>
       ) : (
-        <div>
+        <div className="flex justify-center items-center flex-wrap gap-5 p-5">
           {productsList.map((item) => (
-            <p>{item.title}</p>
+            <Card
+              key={item.id}
+              text="Add to favorites"
+              item={item}
+              handleFunc={handleAdd}
+            />
           ))}
         </div>
       )}
