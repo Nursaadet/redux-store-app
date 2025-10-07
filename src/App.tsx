@@ -3,17 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FavoritesPage from "./pages/FavoritesPage";
 import Home from "./pages/Home";
 import NavBar from "./components/Navbar";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 function App() {
   return (
-    <div className="bg-slate-500 min-h-screen text-center">
-      <BrowserRouter>
+    <div className="bg-gray-400 min-h-screen text-center">
+      <Provider store={store}>
+        <BrowserRouter>
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/favorites" element={<FavoritesPage/>} />
+            <Route path="/favorites" element={<FavoritesPage />} />
           </Routes>
         </BrowserRouter>
+      </Provider>
     </div>
   );
 }
