@@ -5,10 +5,11 @@ import Home from "./pages/Home";
 import NavBar from "./components/Navbar";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <div className="bg-gray-400 min-h-screen text-center">
+    <div className="bg-purple-50 min-h-screen text-center">
       <Provider store={store}>
         <BrowserRouter>
           <NavBar />
@@ -18,6 +19,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </Provider>
+      <ToastContainer />
     </div>
   );
 }
